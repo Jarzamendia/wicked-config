@@ -1,0 +1,8 @@
+{
+  "PORTAL_NETWORK_APIHOST": {
+    "value": "wicked.api.ms.gov.br"
+  },
+  "PORTAL_NETWORK_PORTALHOST": {
+    "value": "wicked.portal.ms.gov.br"
+  }
+}

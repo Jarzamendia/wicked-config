@@ -1,0 +1,105 @@
+{
+  "DOCKER_HOST": {
+    "value": "not-defined"
+  },
+  "HELM_NAME": {
+    "value": "undefined-undefined"
+  },
+  "K8S_NAMESPACE": {
+    "value": "default"
+  },
+  "PORTAL_API_AESKEY": {
+    "encrypted": true,
+    "value": "588ae0748c4462af3ec3d984188c29bea32cde10964f1546810bb667d9f31aa45a4eacaaeddcd871e014e9b2b10878cd72427a0fa940df4ab722181d82237bcb66e26930492812bd4c35d0a3f1ca8b95"
+  },
+  "PORTAL_API_DYNAMIC_CONFIG": {
+    "encrypted": false,
+    "value": "${PORTAL_CONFIG_BASE}dynamic"
+  },
+  "PORTAL_API_STATIC_CONFIG": {
+    "encrypted": false,
+    "value": "${PORTAL_CONFIG_BASE}static"
+  },
+  "PORTAL_API_URL": {
+    "encrypted": false,
+    "value": "http://portal-api:3001"
+  },
+  "PORTAL_AUTHSERVER_URL": {
+    "encrypted": false,
+    "value": "http://portal-auth:3010"
+  },
+  "PORTAL_CHATBOT_URL": {
+    "encrypted": false,
+    "value": "http://portal-chatbot:3004"
+  },
+  "PORTAL_CONFIG_BASE": {
+    "encrypted": false,
+    "value": "/var/portal-api/"
+  },
+  "PORTAL_ECHO_URL": {
+    "encrypted": false,
+    "value": "http://portal-api:3009"
+  },
+  "PORTAL_INITIALUSERS0_PASSWORD": {
+    "value": "wicked"
+  },
+  "PORTAL_KONG_ADAPTER_URL": {
+    "encrypted": false,
+    "value": "http://portal-kong-adapter:3002"
+  },
+  "PORTAL_KONG_ADMIN_URL": {
+    "encrypted": false,
+    "value": "http://kong:8001"
+  },
+  "PORTAL_KONG_PROXY_URL": {
+    "encrypted": false,
+    "value": "http://kong:8000"
+  },
+  "PORTAL_MAILER_URL": {
+    "encrypted": false,
+    "value": "http://portal-mailer:3003"
+  },
+  "PORTAL_NETWORK_APIHOST": {
+    "encrypted": false,
+    "value": "api.portal.com"
+  },
+  "PORTAL_NETWORK_PORTALHOST": {
+    "encrypted": false,
+    "value": "portal.com"
+  },
+  "PORTAL_NETWORK_SCHEMA": {
+    "encrypted": false,
+    "value": "https"
+  },
+  "PORTAL_PORTAL_URL": {
+    "encrypted": false,
+    "value": "http://portal:3000"
+  },
+  "PORTAL_SESSIONSTORE_HOST": {
+    "encrypted": false,
+    "value": "portal-redis"
+  },
+  "PORTAL_SESSIONSTORE_PORT": {
+    "encrypted": false,
+    "value": "6379"
+  },
+  "PORTAL_SESSIONSTORE_TYPE": {
+    "encrypted": false,
+    "value": "redis"
+  },
+  "PORTAL_STORAGE_PGDATABASE": {
+    "value": "wicked"
+  },
+  "PORTAL_STORAGE_PGHOST": {
+    "value": "wicked-database"
+  },
+  "PORTAL_STORAGE_PGPASSWORD": {
+    "value": "kong"
+  },
+  "PORTAL_STORAGE_PGPORT": {
+    "value": "5432"
+  },
+  "PORTAL_STORAGE_PGUSER": {
+    "value": "kong"
+  }
+}

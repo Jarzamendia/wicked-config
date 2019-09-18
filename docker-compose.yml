@@ -1,0 +1,74 @@
+version: '2'
+
+services:
+
+  wicked-database:
+    image: postgres:11-alpine
+    volumes:
+    - "xxx:/var/lib/postgresql/data"
+    environment:
+    - "POSTGRES_USER=kong"
+    - "POSTGRES_PASSWORD=kong"
+    deploy:
+      mode: replicated
+
+
+  kong:
+    image: haufelexware/wicked.kong:1.0.0-rc.7
+    security_opt:
+    - seccomp:unconfined
+    environment:
+    - "DATABASE=postgres"
+    - "VIRTUAL_HOST=https://wicked.api.ms.gov.br:443"
+    - "VIRTUAL_HOST_WEIGHT=100"
+    - "EXCLUDE_PORTS=7946,8001,8443,8444"
+    - "EXTRA_SETTINGS=http-request set-header X-Forwarded-Port %[dst_port]"
+    - "SSL_CERT=${GATEWAY_PEM}"
+    - "KONG_PG_HOST=wicked-database"
+    deploy:
+      mode: replicated
+
+  portal-api:
+    image: haufelexware/wicked.api:1.0.0-rc.7-alpine
+    environment:
+    - "NODE_ENV="
+    - "LOG_LEVEL="
+    - "DEBUG="
+    - "PORTAL_NETWORK_PORTALHOST="
+    - "PORTAL_NETWORK_APIHOST="
+    - "PORTAL_CONFIG_KEY="
+    - "GIT_REPO="
+    - "GIT_BRANCH=master"
+    - "GIT_CREDENTIALS="
+    - "GIT_REVISION="
+    deploy:
+      mode: replicated
+
+  portal:
+    image: haufelexware/wicked.ui:1.0.0-rc.7-alpine
+    environment:
+    - "VIRTUAL_HOST=http://wicked.portal.ms.gov.br:80"
+    - "VIRTUAL_HOST_WEIGHT=0"
+    #- "SSL_CERT=${PORTAL_PEM}"
+    - "LOG_LEVEL=INFO"
+    deploy:
+      mode: replicated
+
+  portal-auth:
+    image: haufelexware/wicked.auth:1.0.0-rc.7-alpine
+    environment:
+    - "LOG_LEVEL=INFO"
+    deploy:
+      mode: replicated
+
+  portal-redis:
+    image: redis:5-alpine
+    deploy:
+      mode: replicated
+
+  portal-kong-adapter:
+    image: haufelexware/wicked.kong-adapter:1.0.0-rc.7-alpine
+    environment:
+    - "LOG_LEVEL=INFO"
+    deploy:
+      mode: replicated
