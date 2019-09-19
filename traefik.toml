@@ -1,0 +1,96 @@
+################################################################
+# Global configuration
+################################################################
+[global]
+  checkNewVersion = false
+  sendAnonymousUsage = false
+
+################################################################
+# Entrypoints configuration
+################################################################
+[entryPoints]
+  [entryPoints.http]
+    address = ":80"
+    [entryPoints.http.proxyProtocol]
+      insecure = true
+      #trustedIPs = ["foobar", "foobar"]
+    [entryPoints.http.forwardedHeaders]
+      insecure = true
+      #trustedIPs = ["foobar", "foobar"]
+  [entryPoints.https]
+    address = ":443"
+    [entryPoints.https.proxyProtocol]
+      insecure = true
+      #trustedIPs = ["foobar", "foobar"]
+    [entryPoints.https.forwardedHeaders]
+      insecure = true
+      #trustedIPs = ["foobar", "foobar"]
+
+################################################################
+# Traefik logs configuration
+################################################################
+
+[log]
+  format = "json"
+  level = "ERROR"
+
+
+################################################################
+# Access logs configuration
+################################################################
+
+[accessLog]
+ format = "json"
+ filePath = "/var/log/messages"
+
+
+################################################################
+# Metrics
+################################################################
+
+[Metrics]
+  [Metrics.Prometheus]
+    buckets = [0.1,0.3,1.2,5.0]
+    addEntryPointsLabels = true
+    addServicesLabels = true
+
+
+################################################################
+# Tracing
+################################################################
+
+[tracing]
+  [tracing.jaeger]
+    samplingServerURL = "http://jaeger-agent:5778/sampling"
+    localAgentHostPort = "jaeger-agent:6831"
+    traceContextHeaderName = "uber-trace-id"
+
+
+
+################################################################
+# API and dashboard configuration
+################################################################
+
+# Enable ping and Dashboard
+[api]
+  dashboard = true
+  debug = true
+
+
+
+################################################################
+# Ping configuration
+################################################################
+
+# Enable ping
+[ping]
+  entryPoint = "http"
+
+
+################################################################
+# Docker configuration backend
+################################################################
+
+[Providers.Docker]
+  SwarmMode = true
+  exposedByDefault = false

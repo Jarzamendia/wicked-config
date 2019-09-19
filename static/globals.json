@@ -49,6 +49,14 @@
       "groups": [
         "admin"
       ]
+    },
+    {
+      "id": "2c39496aef805c591c81c633c9d6c7adb415090a",
+      "firstName": "New",
+      "lastName": "User",
+      "email": "bar@foo.com",
+      "password": "password",
+      "groups": []
     }
   ],
   "recaptcha": {

@@ -1,25 +1,26 @@
-version: '2'
+version: '3.4'
 
 services:
 
   wicked-database:
     image: postgres:11-alpine
+    networks:
+      - proxy_net
     volumes:
-    - "xxx:/var/lib/postgresql/data"
+    - "db_data:/var/lib/postgresql/data"
     environment:
     - "POSTGRES_USER=kong"
     - "POSTGRES_PASSWORD=kong"
     deploy:
       mode: replicated
 
-
   kong:
-    image: haufelexware/wicked.kong:1.0.0-rc.7
-    security_opt:
-    - seccomp:unconfined
+    image: haufelexware/wicked.kong:latest
+    networks:
+      - proxy_net
     environment:
     - "DATABASE=postgres"
-    - "VIRTUAL_HOST=https://wicked.api.ms.gov.br:443"
+    - "VIRTUAL_HOST=http://wicked.api.ms.gov.br:80"
     - "VIRTUAL_HOST_WEIGHT=100"
     - "EXCLUDE_PORTS=7946,8001,8443,8444"
     - "EXTRA_SETTINGS=http-request set-header X-Forwarded-Port %[dst_port]"
@@ -29,46 +30,78 @@ services:
       mode: replicated
 
   portal-api:
-    image: haufelexware/wicked.api:1.0.0-rc.7-alpine
+    image: haufelexware/wicked.api:latest
+    networks:
+      - proxy_net
     environment:
-    - "NODE_ENV="
-    - "LOG_LEVEL="
+    - "NODE_ENV=docker-swarm"
+    - "LOG_LEVEL=Info"
     - "DEBUG="
-    - "PORTAL_NETWORK_PORTALHOST="
-    - "PORTAL_NETWORK_APIHOST="
-    - "PORTAL_CONFIG_KEY="
-    - "GIT_REPO="
+    - "PORTAL_NETWORK_PORTALHOST=portal"
+    - "PORTAL_NETWORK_APIHOST=portal-api"
+    - "PORTAL_CONFIG_KEY=b9efbac376af1049dc3e0dd4e4419cb93b802337"
+    - "GIT_REPO=https://github.com/Jarzamendia/wicked-config.git"
     - "GIT_BRANCH=master"
     - "GIT_CREDENTIALS="
     - "GIT_REVISION="
     deploy:
       mode: replicated
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.wicked_api_router.rule=Host(`wicked.api.ms.gov.br`)"
+        - "traefik.http.routers.wicked_api_router.entrypoints=http"
+        - "traefik.http.services.wicked_api_service.loadbalancer.server.port=3001"
 
   portal:
-    image: haufelexware/wicked.ui:1.0.0-rc.7-alpine
+    image: haufelexware/wicked.ui:latest
+    networks:
+      - proxy_net
     environment:
     - "VIRTUAL_HOST=http://wicked.portal.ms.gov.br:80"
     - "VIRTUAL_HOST_WEIGHT=0"
     #- "SSL_CERT=${PORTAL_PEM}"
-    - "LOG_LEVEL=INFO"
+    - "LOG_LEVEL=DEBUG"
     deploy:
       mode: replicated
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.wicked_portal_router.rule=Host(`wicked.portal.ms.gov.br`)"
+        - "traefik.http.routers.wicked_portal_router.entrypoints=http"
+        - "traefik.http.services.wicked_portal_service.loadbalancer.server.port=3000"
+    volumes:
+    - "./teste:/home/wicked/.npm/_logs"
 
   portal-auth:
-    image: haufelexware/wicked.auth:1.0.0-rc.7-alpine
+    image: haufelexware/wicked.auth:latest
+    networks:
+      - proxy_net
     environment:
     - "LOG_LEVEL=INFO"
+    - "PORTAL_API_URL=http://portal-api:3001"
     deploy:
       mode: replicated
 
   portal-redis:
     image: redis:5-alpine
+    networks:
+      - proxy_net
     deploy:
       mode: replicated
 
   portal-kong-adapter:
-    image: haufelexware/wicked.kong-adapter:1.0.0-rc.7-alpine
+    image: haufelexware/wicked.kong-adapter:latest
+    networks:
+      - proxy_net
     environment:
     - "LOG_LEVEL=INFO"
     deploy:
       mode: replicated
+
+
+volumes:
+  db_data:
+
+
+networks:
+  proxy_net:
+    external: true

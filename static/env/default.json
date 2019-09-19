@@ -10,7 +10,7 @@
   },
   "PORTAL_API_AESKEY": {
     "encrypted": true,
-    "value": "588ae0748c4462af3ec3d984188c29bea32cde10964f1546810bb667d9f31aa45a4eacaaeddcd871e014e9b2b10878cd72427a0fa940df4ab722181d82237bcb66e26930492812bd4c35d0a3f1ca8b95"
+    "value": "0986e327d9153afd33c48c8742d979ecf17dde43964d4a49865cb565d9fb4da3001da4afbededd7ae014e9b2b10878cd72427a0fa940df4ab722181d82237bcb66e26930492812bd4c35d0a3f1ca8b95"
   },
   "PORTAL_API_DYNAMIC_CONFIG": {
     "encrypted": false,

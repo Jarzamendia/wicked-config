@@ -1,0 +1,34 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
+2 info using npm@6.9.0
+3 info using node@v10.16.0
+4 verbose run-script [ 'prestart', 'start', 'poststart' ]
+5 info lifecycle portal@1.0.0-rc.9~prestart: portal@1.0.0-rc.9
+6 info lifecycle portal@1.0.0-rc.9~start: portal@1.0.0-rc.9
+7 verbose lifecycle portal@1.0.0-rc.9~start: unsafe-perm in lifecycle true
+8 verbose lifecycle portal@1.0.0-rc.9~start: PATH: /usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/usr/src/app/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+9 verbose lifecycle portal@1.0.0-rc.9~start: CWD: /usr/src/app
+10 silly lifecycle portal@1.0.0-rc.9~start: Args: [ '-c', 'node ./bin/www' ]
+11 silly lifecycle portal@1.0.0-rc.9~start: Returned: code: 1  signal: null
+12 info lifecycle portal@1.0.0-rc.9~start: Failed to exec start script
+13 verbose stack Error: portal@1.0.0-rc.9 start: `node ./bin/www`
+13 verbose stack Exit status 1
+13 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/index.js:301:16)
+13 verbose stack     at EventEmitter.emit (events.js:198:13)
+13 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/lib/spawn.js:55:14)
+13 verbose stack     at ChildProcess.emit (events.js:198:13)
+13 verbose stack     at maybeClose (internal/child_process.js:982:16)
+13 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:259:5)
+14 verbose pkgid portal@1.0.0-rc.9
+15 verbose cwd /usr/src/app
+16 verbose Linux 4.9.184-linuxkit
+17 verbose argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
+18 verbose node v10.16.0
+19 verbose npm  v6.9.0
+20 error code ELIFECYCLE
+21 error errno 1
+22 error portal@1.0.0-rc.9 start: `node ./bin/www`
+22 error Exit status 1
+23 error Failed at the portal@1.0.0-rc.9 start script.
+23 error This is probably not a problem with npm. There is likely additional logging output above.
+24 verbose exit [ 1, true ]
